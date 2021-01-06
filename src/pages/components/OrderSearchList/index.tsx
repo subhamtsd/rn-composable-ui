@@ -43,12 +43,7 @@ export const OrderSearchList = (props) => {
     );
 
   return (
-    <View
-      style={{
-        maxWidth: Dimensions.get("window").width - 350,
-        // borderWidth: 2,
-      }}
-    >
+    <View style={styles.container}>
       <Text style={styles.heading}>Search Order Here</Text>
       <ScrollView style={styles.container}>
         <SearchList
@@ -68,7 +63,7 @@ export const OrderSearchList = (props) => {
             "orderDate",
             "Action",
           ]}
-          flexWidth={[1, 2, 1, 1, 2]} // Column-span (length of array should be equal to that of visibleKeys)
+          flexWidth={[1, 2, 1, 1, 2, 1]} // Column-span (length of array should be equal to that of visibleKeys)
           numberOfLines={props.props.location.state.response.length} // Row-span
           searchBarWrapperStyle={null}
           searchBarStyle={null}
@@ -96,13 +91,18 @@ export const OrderSearchList = (props) => {
 
 const styles = StyleSheet.create({
   container: {
+    // flex: 1,
+    // borderWidth: 0,
+    // // minHeight: Dimensions.get("window").height - 50,
+    // minWidth: Dimensions.get("screen").width - 350,
+    // // alignItems: "center",
+    // // flexGrow: 1,
+    // // justifyContent: "center",
+
     flex: 1,
     borderWidth: 0,
-    // minHeight: Dimensions.get("window").height - 50,
-    minWidth: Dimensions.get("screen").width - 350,
-    // alignItems: "center",
-    // flexGrow: 1,
-    // justifyContent: "center",
+    minHeight: Dimensions.get("window").height - 50,
+    minWidth: Dimensions.get("window").width / 4,
   },
   text: {
     alignItems: "center",

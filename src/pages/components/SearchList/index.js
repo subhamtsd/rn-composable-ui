@@ -124,6 +124,7 @@ export default function SearchList({
           </View>
         ) : null}
         {filterData.map((d, i) => {
+          console.log("D : i --> ", d, "+" + " " + i);
           return (
             <TouchableOpacity key={d.id}>
               <View style={{ flexDirection: "row" }}>
@@ -218,10 +219,12 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     fontWeight: "bold",
+    borderWidth: 2,
   },
   tableVal: {
     flex: 1,
     padding: 10,
+    borderWidth: 2,
   },
   headerRow: {
     flexDirection: "row",
