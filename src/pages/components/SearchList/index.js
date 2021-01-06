@@ -7,7 +7,10 @@ import {
   View,
   Text,
   StyleSheet,
+  Button,
+  CheckBox,
 } from "react-native";
+// import { CheckBox } from "@react-native-community/checkbox";
 import PropTypes from "prop-types";
 import SearchInput, { createFilter } from "react-native-search-filter";
 
@@ -38,13 +41,26 @@ export default function SearchList({
   inputPlaceholder,
   searchBarWrapperStyle,
   searchBarStyle,
+  buttonTitle,
+  buttonColor,
+  buttonPress,
   ...props
 }) {
   const [searchItem, setSearchItem] = useState("");
-
+  let [isSelected, setSelected] = useState(false);
+  const [checked, setChecked] = useState([]);
   const filterData = data.filter(createFilter(searchItem, searchFields));
 
   const keys = visibleKeys || Object.keys(data[0] || []);
+
+  const checkboxHanlder = (index) => (e) => {
+    const newArr = [...checked]; // copying the old datas array
+    newArr[index] = !newArr[index];
+
+    setChecked(newArr);
+  };
+
+  console.log("Checked Array : : : ", checked);
 
   return (
     <View style={{ flex: 1, width: "100%" }}>
@@ -69,6 +85,30 @@ export default function SearchList({
       <ScrollView style={{ margin: 10 }}>
         {data.length && keys.length ? (
           <View style={styles.headerRow}>
+            <Text style={[styles.tableVal, dataStyle]}>
+              {
+                <CheckBox
+                  color="#0e73ca"
+                  value={isSelected}
+                  onValueChange={setSelected}
+                  //arrow func ,toggle the value of isSelected ,iterate to checked array and make every value equals to isSelected
+                  // onValueChange={selectAll}
+                  // checked={isSelected}
+                  // onValueChange={() => {
+                  //   isSelected = !isSelected;
+                  //   // console.log(checked)
+                  //   for (const i in checked) {
+                  //     setSelection({
+
+                  //     })
+
+                  //   }
+                  //   console.log(checked)
+                  // }}
+                />
+              }
+            </Text>
+
             {keys.map((key, i) => (
               <Text
                 key={i}
@@ -83,10 +123,39 @@ export default function SearchList({
             ))}
           </View>
         ) : null}
-        {filterData.map((d) => {
+        {filterData.map((d, i) => {
           return (
             <TouchableOpacity key={d.id}>
               <View style={{ flexDirection: "row" }}>
+                <Text style={[styles.tableVal, dataStyle]}>
+                  {
+                    <CheckBox
+                      value={checked[i]}
+                      onValueChange={checkboxHanlder(i)}
+
+                      // onValueChange={() => toggleCheck(i)}
+                      // checked={checked[i]}
+
+                      /*onChange=
+                      {(e) => 
+                        let checked= {e.target.checked};
+                        setSelection
+                        (
+                          isSelected.map
+                          (data => 
+                            {
+                              if(d.id == data.id)
+                              {
+                                data.isSelected = true;
+                              }
+                                return data;
+                            }
+                          )
+                        );
+                      }*/
+                    />
+                  }
+                </Text>
                 {keys.length
                   ? keys.map((key, i) => (
                       // Remove numberOfLines and ellipsizeMode, if the content row span doesn't bother us
@@ -104,6 +173,21 @@ export default function SearchList({
                       </Text>
                     ))
                   : null}
+                <View
+                  style={{
+                    margin: 5,
+                  }}
+                >
+                  <Text style={{ alignItems: "center" }}>
+                    {
+                      <Button
+                        title={buttonTitle}
+                        color={buttonColor}
+                        onPress={buttonPress}
+                      />
+                    }
+                  </Text>
+                </View>
               </View>
             </TouchableOpacity>
           );
@@ -123,23 +207,41 @@ SearchList.propTypes = {
   inputPlaceholder: PropTypes.string,
   searchBarWrapperStyle: PropTypes.object,
   searchBarStyle: PropTypes.object,
+  buttonTitle: PropTypes.string,
+  buttonColor: PropTypes.string,
+  buttonPress: PropTypes.object,
 };
 
 const styles = StyleSheet.create({
   tableHead: {
     flex: 1,
-    margin: 8,
-    fontSize: 14,
+    padding: 10,
+    fontSize: 16,
     fontWeight: "bold",
   },
   tableVal: {
     flex: 1,
-    margin: 8,
+    padding: 10,
   },
   headerRow: {
     flexDirection: "row",
     borderBottomWidth: 2,
     borderBottomColor: "grey",
-    flex: 1,
+  },
+
+  appButtonContainer: {
+    elevation: 8,
+    backgroundColor: "black",
+    borderRadius: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    padding: 10,
+  },
+  appButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase",
   },
 });

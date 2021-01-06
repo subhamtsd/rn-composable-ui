@@ -216,7 +216,7 @@ export const OneMoreAppConfig: any = {
           // Column 1 Row 1
           "0": {
             name: "Test",
-            size: "0.5",
+            size: "1",
           },
         },
 
@@ -225,7 +225,7 @@ export const OneMoreAppConfig: any = {
           // Colum 2 row 1
           "0": {
             name: "ShowEntity",
-            size: "3.5",
+            size: "3",
           },
 
           // Column 2 row 2

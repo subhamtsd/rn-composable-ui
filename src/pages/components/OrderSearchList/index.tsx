@@ -45,7 +45,8 @@ export const OrderSearchList = (props) => {
   return (
     <View
       style={{
-        maxWidth: Dimensions.get("window").width,
+        maxWidth: Dimensions.get("window").width - 350,
+        // borderWidth: 2,
       }}
     >
       <Text style={styles.heading}>Search Order Here</Text>
@@ -65,6 +66,7 @@ export const OrderSearchList = (props) => {
             "orderType",
             "status",
             "orderDate",
+            "Action",
           ]}
           flexWidth={[1, 2, 1, 1, 2]} // Column-span (length of array should be equal to that of visibleKeys)
           numberOfLines={props.props.location.state.response.length} // Row-span
@@ -73,6 +75,11 @@ export const OrderSearchList = (props) => {
           titleStyle={null}
           dataStyle={{ color: "darkblue" }}
           inputPlaceholder="Search Here"
+          buttonColor="#0e73ca"
+          buttonTitle="Show"
+          buttonPress={() => {
+            console.log("Press button");
+          }}
         />
         <View
           style={{
@@ -92,7 +99,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 0,
     // minHeight: Dimensions.get("window").height - 50,
-    minWidth: Dimensions.get("window").width / 2,
+    minWidth: Dimensions.get("screen").width - 350,
     // alignItems: "center",
     // flexGrow: 1,
     // justifyContent: "center",
