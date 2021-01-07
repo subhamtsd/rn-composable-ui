@@ -13,7 +13,7 @@ export const First = ({
     },
   },
 }) => {
-  console.log("state for lastEmail >>> ", route.params.state.user.lastEmail);
+  // console.log("state for lastEmail >>> ", route.params.state.user.lastEmail);
 
   // TODO : Setup of State can be  extracted to common location in Navigator.tsx
   const state = useSelector((s) => s); //s.keyName --> Performance Benefit

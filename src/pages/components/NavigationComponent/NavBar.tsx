@@ -57,21 +57,56 @@ function RenderSearchOrderList(props) {
   );
 }
 
-// function Cart() {
-//     return (
-//         <View>
-//             <Row>
-//                 <Text style={styles.subHeader}>Cart</Text>
-//             </Row>
-//         </View>
-//     );
-// }
+function RenderBillToAddressDetailView({ routes }) {
+  return (
+    <View>
+      <Row>
+        <Text>Bill To Address Detail View</Text>
+        <Text>{JSON.stringify(routes)}</Text>
+      </Row>
+    </View>
+  );
+}
+
+function RenderOrderDetailView({ match, routes }) {
+  return (
+    <View>
+      <Text>Order Detail View</Text>
+      <Text>2nd Level Routes : {JSON.stringify(routes)}</Text>
+      <Text>match object : : {JSON.stringify(match)}</Text>
+    </View>
+  );
+}
+
+function RenderAddressLine({ routes }) {
+  return (
+    <View>
+      <Text>AddressLines</Text>
+      <Text>{JSON.stringify(routes)}</Text>
+    </View>
+  );
+}
+
+function RenderOrderlineDetail(props) {
+  return (
+    <View>
+      <Text>Order Line Details</Text>
+      <Text>{JSON.stringify(props)}</Text>
+    </View>
+  );
+}
+
+function RenderOrderlineAddress(props) {
+  return (
+    <View>
+      <Text>Order Line Address</Text>
+      <Text>{JSON.stringify(props)}</Text>
+    </View>
+  );
+}
 
 const routes = [
-  // {
-  //     path: "/home",
-  //     component: Home
-  // },
+  // ORDER SEARCH
   {
     path: "/search-order",
     component: RenderSearchOrderForm,
@@ -80,15 +115,38 @@ const routes = [
         path: "/search-order/list",
         component: RenderSearchOrderList,
       },
-      // {
-      //     path: "/tacos/cart",
-      //     component: Cart
-      // }
     ],
+  },
+  // ORDER BillTOAddress VIEWS
+  {
+    path: "/bill-address-details/:addressKey",
+    component: RenderBillToAddressDetailView,
+  },
+  // ORDER LINE LIST VIEW
+  {
+    path: `/orderdetails/:orderKey`,
+    component: RenderOrderDetailView,
+    routes: [
+      {
+        path: `/orderdetails/orderline-details/:orderKey`,
+        component: RenderOrderlineDetail,
+      },
+      {
+        path: `/orderdetails/orderline-address/:orderKey`,
+        component: RenderOrderlineAddress,
+      },
+    ],
+  },
+  // ORDER ADDRESS LINE
+  {
+    path: "/:orderKey/addresslines",
+    component: RenderAddressLine,
   },
 ];
 
 function RouteWithSubRoutes(route) {
+  console.log("Routes to be scanned : : : : ", route);
+
   return (
     <Route
       path={route.path}
@@ -168,7 +226,7 @@ const NavBar = () => {
       <SafeAreaView
         style={{
           flex: 1,
-          minHeight: Dimensions.get("window").height,
+          minHeight: Dimensions.get("screen").height,
         }}
       >
         <View style={styles.container}>

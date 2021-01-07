@@ -39,6 +39,7 @@ export default function SearchList({
   titleStyle,
   dataStyle,
   inputPlaceholder,
+  numberOfLines,
   searchBarWrapperStyle,
   searchBarStyle,
   buttonTitle,
@@ -48,10 +49,69 @@ export default function SearchList({
 }) {
   const [searchItem, setSearchItem] = useState("");
   let [isSelected, setSelected] = useState(false);
-  const [checked, setChecked] = useState([]);
+  // const initalCheckboxState = () => {
+  //   var initialStateArray = [];
+  //   for (var i = 0; i < numberOfLines; i++) {
+  //     initialStateArray.push(false);
+  //   }
+  //   return initialStateArray;
+  // };
+  const [checked, setChecked] = useState([]); // [false, false]
   const filterData = data.filter(createFilter(searchItem, searchFields));
 
   const keys = visibleKeys || Object.keys(data[0] || []);
+
+  useEffect(() => {
+    var tempArray = [];
+    for (var i = 0; i < numberOfLines; i++) {
+      tempArray.push(isSelected);
+    }
+    isSelected ? setChecked(tempArray) : setChecked([]);
+  }, [isSelected]);
+
+  // const toggleCheck = (i) => {
+  //   setChecked((prevState) => {
+  //     const newState = { ...prevState };
+  //     newState[i] = !prevState[i];
+  //     return newState;
+  //   });
+  // };
+
+  // const selectAll = (value) => {
+  //   setSelected(value);
+  //   setChecked((prevState) => {
+  //     const newState = { ...prevState };
+  //     for (const i in newState) {
+  //       newState[i] = value;
+  //     }
+  //     return newState;
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   let allChecked = true;
+  //   for (const i in checked) {
+  //     if (checked[i] === false) {
+  //       allChecked = false;
+  //     }
+  //   }
+  //   if (allChecked) {
+  //     setSelected(true);
+  //   } else {
+  //     setSelected(false);
+  //   }
+  // }, [isSelected]);
+
+  // const selectAll = (value) => {
+  //   setSelected(value);
+  //   setSelected((prevState) => {
+  //     const newState = { ...prevState };
+  //     for (const i in newState) {
+  //       newState[i] = value;
+  //     }
+  //     return newState;
+  //   });
+  // };t
 
   const checkboxHanlder = (index) => (e) => {
     const newArr = [...checked]; // copying the old datas array
@@ -59,6 +119,29 @@ export default function SearchList({
 
     setChecked(newArr);
   };
+
+  // const selectAll =(d)=>{
+  //   let helperArr=[]
+  //   for(let index=0;index<d.id.length;index++){
+  //     if(!isSelected){
+  //       helperArr.push(index);
+  //     }
+  //     else if(isSelected){
+  //       helperArr=[]
+  //     }
+  //     setSelection({
+  //       isSelected:!isSelected,
+  //     })
+  //   }
+  // }
+
+  // const checkboxHanlder = (index) => {
+  //   console.log("here----------",index)
+  //   checked[index] = !checked[index];
+  //   setChecked;
+  // };
+
+  // const {isSelectedArray,setSelected}=useState{["false"]};
 
   console.log("Checked Array : : : ", checked);
 
@@ -98,12 +181,9 @@ export default function SearchList({
                   //   isSelected = !isSelected;
                   //   // console.log(checked)
                   //   for (const i in checked) {
-                  //     setSelection({
-
-                  //     })
-
+                  //     setSelection({});
                   //   }
-                  //   console.log(checked)
+                  //   console.log(checked);
                   // }}
                 />
               }
@@ -124,13 +204,14 @@ export default function SearchList({
           </View>
         ) : null}
         {filterData.map((d, i) => {
-          console.log("D : i --> ", d, "+" + " " + i);
+          // console.log("D : i --> ", d, "+" + " " + i);
           return (
             <TouchableOpacity key={d.id}>
               <View style={{ flexDirection: "row" }}>
                 <Text style={[styles.tableVal, dataStyle]}>
                   {
                     <CheckBox
+                      color="#0e73ca"
                       value={checked[i]}
                       onValueChange={checkboxHanlder(i)}
 
@@ -203,6 +284,7 @@ SearchList.propTypes = {
   searchFields: PropTypes.array,
   visibleKeys: PropTypes.array,
   flexWidth: PropTypes.array,
+  numberOfLines: PropTypes.number,
   titleStyle: PropTypes.object,
   dataStyle: PropTypes.object,
   inputPlaceholder: PropTypes.string,
@@ -219,12 +301,12 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
     fontWeight: "bold",
-    borderWidth: 2,
+    // borderWidth: 2,
   },
   tableVal: {
     flex: 1,
     padding: 10,
-    borderWidth: 2,
+    // borderWidth: 2,
   },
   headerRow: {
     flexDirection: "row",

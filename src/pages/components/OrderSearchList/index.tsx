@@ -8,11 +8,14 @@ import {
   Text,
   View,
 } from "react-native";
+import { useHistory } from "react-router-native";
 import SearchList from "../SearchList";
 // import { useRouting } from "expo-next-react-navigation";
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const OrderSearchList = (props) => {
+  const history = useHistory();
+
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -63,7 +66,7 @@ export const OrderSearchList = (props) => {
             "orderDate",
             "Action",
           ]}
-          flexWidth={[1, 2, 1, 1, 2, 1]} // Column-span (length of array should be equal to that of visibleKeys)
+          flexWidth={[1, 2, 1, 1, 2, 0]} // Column-span (length of array should be equal to that of visibleKeys)
           numberOfLines={props.props.location.state.response.length} // Row-span
           searchBarWrapperStyle={null}
           searchBarStyle={null}
@@ -73,7 +76,7 @@ export const OrderSearchList = (props) => {
           buttonColor="#0e73ca"
           buttonTitle="Show"
           buttonPress={() => {
-            console.log("Press button");
+            history.push(`/orderdetails/10399`);
           }}
         />
         <View
@@ -91,14 +94,6 @@ export const OrderSearchList = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // borderWidth: 0,
-    // // minHeight: Dimensions.get("window").height - 50,
-    // minWidth: Dimensions.get("screen").width - 350,
-    // // alignItems: "center",
-    // // flexGrow: 1,
-    // // justifyContent: "center",
-
     flex: 1,
     borderWidth: 0,
     minHeight: Dimensions.get("window").height - 50,

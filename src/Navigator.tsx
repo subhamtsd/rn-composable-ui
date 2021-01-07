@@ -19,9 +19,9 @@ export const Navigator = (props) => {
 
   let routesSection: any = [];
 
-  console.log("routes : : :  -> ", props.routes);
+  // console.log("routes : : :  -> ", props.routes);
 
-  console.log("Props in navigator : : : ---> ", props);
+  // console.log("Props in navigator : : : ---> ", props);
 
   // TODO : props.appId || added to getRouteConfig parameter
   routesSection = Object.keys(props.routes).map((key) => (
