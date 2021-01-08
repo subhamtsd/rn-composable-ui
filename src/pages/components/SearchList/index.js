@@ -13,6 +13,7 @@ import {
 // import { CheckBox } from "@react-native-community/checkbox";
 import PropTypes from "prop-types";
 import SearchInput, { createFilter } from "react-native-search-filter";
+import { useHistory } from "react-router-native";
 
 {
   /* 
@@ -47,6 +48,7 @@ export default function SearchList({
   buttonPress,
   ...props
 }) {
+  const history = useHistory();
   const [searchItem, setSearchItem] = useState("");
   let [isSelected, setSelected] = useState(false);
   // const initalCheckboxState = () => {
@@ -204,7 +206,7 @@ export default function SearchList({
           </View>
         ) : null}
         {filterData.map((d, i) => {
-          // console.log("D : i --> ", d, "+" + " " + i);
+          console.log("D : i --> ", d, "+" + " " + i);
           return (
             <TouchableOpacity key={d.id}>
               <View style={{ flexDirection: "row" }}>
@@ -265,7 +267,14 @@ export default function SearchList({
                       <Button
                         title={buttonTitle}
                         color={buttonColor}
-                        onPress={buttonPress}
+                        // TODO : Handler is not comming props need to add this functionality
+                        onPress={() => {
+                          console.log("i ==> ", i);
+                          console.log("d ==> ", d.addressKey);
+                          history.push(
+                            `/orderdetails/${d.orderKey}/${d.addressKey}`
+                          );
+                        }}
                       />
                     }
                   </Text>

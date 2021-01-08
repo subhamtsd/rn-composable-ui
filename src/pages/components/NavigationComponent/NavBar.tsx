@@ -17,6 +17,9 @@ import {
 import { Col, Grid, Row } from "react-native-easy-grid";
 
 import { NativeRouter as Router, Route } from "react-router-native";
+import { BillToAddressDetailComponent } from "../BillToAddressDetailComponent/BillToAddressDetailComponent";
+import { OrderDetailsComponents } from "../OrderDetailsComponents/OrderDetailsComponents";
+import { OrderLineListComponent } from "../OrderLineListComponent/OrderLineListComponent";
 
 import OrderSearchForm from "../OrderSearchForm/OrderSearchForm";
 import { OrderSearchList } from "../OrderSearchList";
@@ -57,23 +60,44 @@ function RenderSearchOrderList(props) {
   );
 }
 
-function RenderBillToAddressDetailView({ routes }) {
-  return (
-    <View>
-      <Row>
-        <Text>Bill To Address Detail View</Text>
-        <Text>{JSON.stringify(routes)}</Text>
-      </Row>
-    </View>
-  );
-}
-
 function RenderOrderDetailView({ match, routes }) {
   return (
-    <View>
-      <Text>Order Detail View</Text>
-      <Text>2nd Level Routes : {JSON.stringify(routes)}</Text>
-      <Text>match object : : {JSON.stringify(match)}</Text>
+    <View style={styles.container}>
+      <Row
+        style={{
+          // borderWidth: 1,
+          flex: 1,
+        }}
+        size={0.5}
+      >
+        <OrderDetailsComponents match={match} routes={routes} />
+      </Row>
+      <Row
+        style={{
+          // borderWidth: 1,
+          flex: 1,
+        }}
+        size={3.5}
+      >
+        <Col
+          style={{
+            // borderWidth: 1,
+            flex: 1,
+          }}
+        >
+          {/* <RenderOrderlineDetail match={match} routes={routes} /> */}
+          <OrderLineListComponent match={match} routes={routes} />
+        </Col>
+        <Col
+          style={{
+            // borderWidth: 1,
+            flex: 1,
+          }}
+        >
+          {/* <RenderBillToAddressDetailView match={match} routes={routes} /> */}
+          <BillToAddressDetailComponent match={match} routes={routes} />
+        </Col>
+      </Row>
     </View>
   );
 }
@@ -83,24 +107,6 @@ function RenderAddressLine({ routes }) {
     <View>
       <Text>AddressLines</Text>
       <Text>{JSON.stringify(routes)}</Text>
-    </View>
-  );
-}
-
-function RenderOrderlineDetail(props) {
-  return (
-    <View>
-      <Text>Order Line Details</Text>
-      <Text>{JSON.stringify(props)}</Text>
-    </View>
-  );
-}
-
-function RenderOrderlineAddress(props) {
-  return (
-    <View>
-      <Text>Order Line Address</Text>
-      <Text>{JSON.stringify(props)}</Text>
     </View>
   );
 }
@@ -117,30 +123,17 @@ const routes = [
       },
     ],
   },
-  // ORDER BillTOAddress VIEWS
-  {
-    path: "/bill-address-details/:addressKey",
-    component: RenderBillToAddressDetailView,
-  },
   // ORDER LINE LIST VIEW
   {
-    path: `/orderdetails/:orderKey`,
+    path: `/orderdetails/:orderKey/:addressKey`,
     component: RenderOrderDetailView,
     routes: [
+      // ORDER ADDRESS LINE
       {
-        path: `/orderdetails/orderline-details/:orderKey`,
-        component: RenderOrderlineDetail,
-      },
-      {
-        path: `/orderdetails/orderline-address/:orderKey`,
-        component: RenderOrderlineAddress,
+        path: "/orderlineDetails/:orderlineKey/:addressKey",
+        component: RenderAddressLine,
       },
     ],
-  },
-  // ORDER ADDRESS LINE
-  {
-    path: "/:orderKey/addresslines",
-    component: RenderAddressLine,
   },
 ];
 

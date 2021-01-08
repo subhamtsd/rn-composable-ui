@@ -57,6 +57,7 @@ export const OrderSearchList = (props) => {
             "orderType",
             "status",
             "orderDate",
+            "addressKey",
           ]}
           visibleKeys={[
             "orderKey",
@@ -64,9 +65,10 @@ export const OrderSearchList = (props) => {
             "orderType",
             "status",
             "orderDate",
+            "addressKey",
             "Action",
           ]}
-          flexWidth={[1, 2, 1, 1, 2, 0]} // Column-span (length of array should be equal to that of visibleKeys)
+          flexWidth={[1, 2, 1, 1, 2, 1, 0]} // Column-span (length of array should be equal to that of visibleKeys)
           numberOfLines={props.props.location.state.response.length} // Row-span
           searchBarWrapperStyle={null}
           searchBarStyle={null}
@@ -76,7 +78,7 @@ export const OrderSearchList = (props) => {
           buttonColor="#0e73ca"
           buttonTitle="Show"
           buttonPress={() => {
-            history.push(`/orderdetails/10399`);
+            history.push(`/orderdetails/10399/89930`);
           }}
         />
         <View

@@ -16,6 +16,8 @@ import { OrderSearchList } from "../pages/components/OrderSearchList";
 import NavBar from "../pages/components/NavigationComponent/NavBar";
 import RnNavBar from "../pages/components/NavigationComponent/RnNavBar";
 import { OrderSearchForm } from "../pages/components/OrderSearchForm/OrderSearchForm";
+import { OrderDetailsComponents } from "../pages/components/OrderDetailsComponents/OrderDetailsComponents";
+import { OrderLineListComponent } from "../pages/components/OrderLineListComponent/OrderLineListComponent";
 
 // All component which will be rendered
 export const componentsSet: any = {
@@ -36,6 +38,8 @@ export const componentsSet: any = {
   HeaderComponent,
   OrderSearchForm,
   NavBar,
+  OrderDetailsComponents,
+  OrderLineListComponent,
 };
 
 export const IndexConfig: any = {
