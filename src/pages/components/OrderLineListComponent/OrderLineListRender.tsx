@@ -17,7 +17,6 @@ export default function OrderLineListRender({
   visibleKeys,
   titleStyle,
   dataStyle,
-  routes,
 }) {
   const history = useHistory();
   const [searchItem, setSearchItem] = useState("");
