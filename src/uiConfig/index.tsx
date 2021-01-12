@@ -18,7 +18,8 @@ import RnNavBar from "../pages/components/NavigationComponent/RnNavBar";
 import { OrderSearchForm } from "../pages/components/OrderSearchForm/OrderSearchForm";
 import { OrderDetailsComponents } from "../pages/components/OrderDetailsComponents/OrderDetailsComponents";
 import { OrderLineListComponent } from "../pages/components/OrderLineListComponent/OrderLineListComponent";
-
+import { OrderLineDetailComponent } from "../pages/components/OrderLineDetailComponent/OrderLineDetailComponent";
+import { OrderLineAddressComponent } from "../pages/components/OrderLineAddressComponent/OrderLineAddressComponent";
 // All component which will be rendered
 export const componentsSet: any = {
   // TODO : Rn Composible screen components
@@ -40,6 +41,8 @@ export const componentsSet: any = {
   NavBar,
   OrderDetailsComponents,
   OrderLineListComponent,
+  OrderLineDetailComponent,
+  OrderLineAddressComponent,
 };
 
 export const IndexConfig: any = {
@@ -220,18 +223,16 @@ export const OneMoreAppConfig: any = {
           // Column 1 Row 1
           "0": {
             name: "Test",
-            size: "1",
+            size: "0.5",
           },
         },
-
         // Column 2 below
         "1": {
           // Colum 2 row 1
           "0": {
             name: "ShowEntity",
-            size: "3",
+            size: "3.5",
           },
-
           // Column 2 row 2
           "1": {
             layout: {

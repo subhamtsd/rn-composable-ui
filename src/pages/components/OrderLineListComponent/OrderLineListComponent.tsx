@@ -52,7 +52,7 @@ export const OrderLineListComponent = ({ match, routes }: any) => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.heading}>OrderLine List</Text>
+      <Text style={styles.heading}>Order Line List View</Text>
       {/* Component I rendered */}
       <OrderLineListRender
         data={data}
@@ -60,6 +60,7 @@ export const OrderLineListComponent = ({ match, routes }: any) => {
         visibleKeys={["orderLineKey", "itemCode", "costPrice", "unitPrice"]}
         titleStyle={null}
         dataStyle={{ color: "darkblue" }}
+        routes={routes}
       />
       {/* COmponent Satyam Rendered */}
       {/* <SearchList 
@@ -111,9 +112,9 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 20,
+    color: "#0d47a1",
     fontWeight: "bold",
-    marginVertical: 10,
-    margin: 10,
+    textAlign: "center",
   },
   link: {
     color: "blue",

@@ -19,6 +19,8 @@ import { Col, Grid, Row } from "react-native-easy-grid";
 import { NativeRouter as Router, Route } from "react-router-native";
 import { BillToAddressDetailComponent } from "../BillToAddressDetailComponent/BillToAddressDetailComponent";
 import { OrderDetailsComponents } from "../OrderDetailsComponents/OrderDetailsComponents";
+import { OrderLineAddressComponent } from "../OrderLineAddressComponent/OrderLineAddressComponent";
+import { OrderLineDetailComponent } from "../OrderLineDetailComponent/OrderLineDetailComponent";
 import { OrderLineListComponent } from "../OrderLineListComponent/OrderLineListComponent";
 
 import OrderSearchForm from "../OrderSearchForm/OrderSearchForm";
@@ -98,15 +100,35 @@ function RenderOrderDetailView({ match, routes }) {
           <BillToAddressDetailComponent match={match} routes={routes} />
         </Col>
       </Row>
+      {routes.map((route, i) => (
+        <RouteWithSubRoutes key={i} {...route} />
+      ))}
     </View>
   );
 }
 
-function RenderAddressLine({ routes }) {
+function OrderLineDetailView({ match }) {
   return (
-    <View>
-      <Text>AddressLines</Text>
-      <Text>{JSON.stringify(routes)}</Text>
+    <View style={styles.container}>
+      <Row>
+        <Col
+          style={{
+            // borderWidth: 1,
+            flex: 1,
+          }}
+        >
+          <OrderLineDetailComponent match={match} />
+        </Col>
+        <Col
+          style={{
+            // borderWidth: 1,
+            flex: 1,
+          }}
+        >
+          {/* <Text>{JSON.stringify(match)}</Text> */}
+          <OrderLineAddressComponent match={match} />
+        </Col>
+      </Row>
     </View>
   );
 }
@@ -123,15 +145,15 @@ const routes = [
       },
     ],
   },
-  // ORDER LINE LIST VIEW
+  // ORDER DETAIL VIEW
   {
     path: `/orderdetails/:orderKey/:addressKey`,
     component: RenderOrderDetailView,
     routes: [
-      // ORDER ADDRESS LINE
+      // ORDERLINE DETAIL VIEW
       {
-        path: "/orderlineDetails/:orderlineKey/:addressKey",
-        component: RenderAddressLine,
+        path: "/orderdetails/:orderKey/:addressKey/:orderLineKey",
+        component: OrderLineDetailView,
       },
     ],
   },

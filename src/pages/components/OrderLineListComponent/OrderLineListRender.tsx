@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import PropTypes from "prop-types";
 import SearchInput, { createFilter } from "react-native-search-filter";
+import { useHistory } from "react-router";
 
 export default function OrderLineListRender({
   data,
@@ -16,7 +17,9 @@ export default function OrderLineListRender({
   visibleKeys,
   titleStyle,
   dataStyle,
+  routes,
 }) {
+  const history = useHistory();
   const [searchItem, setSearchItem] = useState("");
 
   const filterData = data.filter(createFilter(searchItem, searchFields));
@@ -47,6 +50,9 @@ export default function OrderLineListRender({
             <TouchableOpacity
               key={d.id}
               onPress={() => {
+                history.push(
+                  `/orderdetails/${d.orderHeaderKey}/${d.addressKey}/${d.orderLineKey}`
+                );
                 console.log("d ===?>>>>> ", d);
               }}
             >
@@ -80,6 +86,7 @@ OrderLineListRender.propTypes = {
   visibleKeys: PropTypes.array,
   titleStyle: PropTypes.object,
   dataStyle: PropTypes.object,
+  routes: PropTypes.object,
 };
 
 const styles = StyleSheet.create({

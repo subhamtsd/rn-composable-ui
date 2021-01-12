@@ -29,7 +29,7 @@ const TextRender = ({ textFeild, value }) => {
   );
 };
 
-const Item = ({ item, onPress, style, match, routes }) => (
+const Item = ({ item, onPress, style, match }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
     <Grid
       style={{
@@ -51,7 +51,7 @@ const Item = ({ item, onPress, style, match, routes }) => (
             }
           }
         >
-          <Text style={styles.title}>Selected Order Detail</Text>
+          <Text style={styles.title}>Selected Order Line Detail</Text>
           {/* <Text>{JSON.stringify(match.params.orderKey)}</Text>
           <Text>{JSON.stringify(routes)}</Text> */}
         </Col>
@@ -74,24 +74,18 @@ const Item = ({ item, onPress, style, match, routes }) => (
           }
         >
           {/* TODO : ADD display name feild in API to generate Display text of the field */}
-          <TextRender textFeild={`Order Key`} value={item.orderKey} />
-          <TextRender textFeild={`Order Name`} value={item.orderName} />
-          <TextRender textFeild={`Order Type`} value={item.orderType} />
-          <TextRender textFeild={`Order Date`} value={item.orderDate} />
-          <TextRender textFeild={`Currency Code`} value={item.currencyCode} />
+          <TextRender textFeild={`Order Line Key`} value={item.orderLineKey} />
+          <TextRender
+            textFeild={`Order Header Key`}
+            value={item.orderHeaderKey}
+          />
+          <TextRender textFeild={`Quantity`} value={item.quantity} />
+          <TextRender textFeild={`Unit Price`} value={item.unitPrice} />
+          <TextRender textFeild={`Cost Price`} value={item.costPrice} />
           <TextRender textFeild={`Address Key`} value={item.addressKey} />
-          <TextRender
-            textFeild={`Total Order Product`}
-            value={item.totalOrderProduct}
-          />
-          <TextRender
-            textFeild={`Total Order Tax`}
-            value={item.totalOrderTax}
-          />
-          <TextRender
-            textFeild={`Total Order Amount`}
-            value={item.totalOrderAmount}
-          />
+          <TextRender textFeild={`Currency Code`} value={item.currencyCode} />
+          <TextRender textFeild={`Ship Node`} value={item.shipNode} />
+          <TextRender textFeild={`Order No`} value={item.orderNo} />
           <TextRender textFeild={`Order Status`} value={item.status} />
         </Col>
       </Row>
@@ -99,7 +93,7 @@ const Item = ({ item, onPress, style, match, routes }) => (
   </TouchableOpacity>
 );
 
-export const OrderDetailsComponents = ({ match, routes }) => {
+export const OrderLineDetailComponent = ({ match }) => {
   const [selectedId, setSelectedId] = useState(null);
 
   const [data, setdata] = useState([]);
@@ -109,7 +103,7 @@ export const OrderDetailsComponents = ({ match, routes }) => {
     setLoading(true);
     const fetchData = async () => {
       const res = await fetch(
-        `http://localhost:8080/transaction-web/v1/serviceorder/${match.params.orderKey}`,
+        `http://localhost:8080/transaction-web/v1/orderline/${match.params.orderLineKey}`,
         {
           method: "GET",
           headers: {
@@ -142,7 +136,6 @@ export const OrderDetailsComponents = ({ match, routes }) => {
         onPress={() => setSelectedId(item.id)}
         style={{ backgroundColor }}
         match={match}
-        routes={routes}
       />
     );
   };

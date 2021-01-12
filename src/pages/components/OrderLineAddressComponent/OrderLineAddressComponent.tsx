@@ -12,11 +12,21 @@ import {
 } from "react-native";
 import { Col, Grid, Row } from "react-native-easy-grid";
 
+const DATA = [
+  {
+    id: "1",
+    title: "Bill To Address Details",
+    description:
+      "We provide service for music sessions.\nYou will learn here:\nClassical\nPop",
+    subInfo: " 2 batches a week\nTimings are 1pm-2pm 2pm-3pm ",
+  },
+];
+
 const TextRender = ({ textFeild, value }) => {
   return (
     <Row
       style={{
-        margin: 5,
+        margin: 10,
       }}
     >
       <Col>
@@ -29,11 +39,12 @@ const TextRender = ({ textFeild, value }) => {
   );
 };
 
-const Item = ({ item, onPress, style, match, routes }) => (
+const Item = ({ item, onPress, style, match }) => (
   <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
     <Grid
       style={{
         flex: 1,
+        // borderWidth: 3,
       }}
     >
       <Row
@@ -51,7 +62,7 @@ const Item = ({ item, onPress, style, match, routes }) => (
             }
           }
         >
-          <Text style={styles.title}>Selected Order Detail</Text>
+          <Text style={styles.title}>Selected Order Line Address Detail</Text>
           {/* <Text>{JSON.stringify(match.params.orderKey)}</Text>
           <Text>{JSON.stringify(routes)}</Text> */}
         </Col>
@@ -61,7 +72,7 @@ const Item = ({ item, onPress, style, match, routes }) => (
           // borderWidth: 1,
           padding: 10,
           flex: 1,
-          marginTop: 40,
+          marginTop: 30,
           marginLeft: 20,
           marginRight: 20,
         }}
@@ -74,32 +85,22 @@ const Item = ({ item, onPress, style, match, routes }) => (
           }
         >
           {/* TODO : ADD display name feild in API to generate Display text of the field */}
-          <TextRender textFeild={`Order Key`} value={item.orderKey} />
-          <TextRender textFeild={`Order Name`} value={item.orderName} />
-          <TextRender textFeild={`Order Type`} value={item.orderType} />
-          <TextRender textFeild={`Order Date`} value={item.orderDate} />
-          <TextRender textFeild={`Currency Code`} value={item.currencyCode} />
-          <TextRender textFeild={`Address Key`} value={item.addressKey} />
           <TextRender
-            textFeild={`Total Order Product`}
-            value={item.totalOrderProduct}
+            textFeild={`Address Info Key`}
+            value={item.addressInfoKey}
           />
-          <TextRender
-            textFeild={`Total Order Tax`}
-            value={item.totalOrderTax}
-          />
-          <TextRender
-            textFeild={`Total Order Amount`}
-            value={item.totalOrderAmount}
-          />
-          <TextRender textFeild={`Order Status`} value={item.status} />
+          <TextRender textFeild={`First Name`} value={item.firstName} />
+          <TextRender textFeild={`Last Name`} value={item.lastName} />
+          <TextRender textFeild={`City`} value={item.city} />
+          <TextRender textFeild={`State`} value={item.state} />
+          <TextRender textFeild={`Postal code`} value={item.postalCode} />
         </Col>
       </Row>
     </Grid>
   </TouchableOpacity>
 );
 
-export const OrderDetailsComponents = ({ match, routes }) => {
+export const OrderLineAddressComponent = ({ match }) => {
   const [selectedId, setSelectedId] = useState(null);
 
   const [data, setdata] = useState([]);
@@ -109,7 +110,8 @@ export const OrderDetailsComponents = ({ match, routes }) => {
     setLoading(true);
     const fetchData = async () => {
       const res = await fetch(
-        `http://localhost:8080/transaction-web/v1/serviceorder/${match.params.orderKey}`,
+        `http://localhost:8080/transaction-web/v1/address/${match.params.addressKey}`,
+        // `https://run.mocky.io/v3/31e2c2ab-c3de-464a-9f75-17324669aa95`,
         {
           method: "GET",
           headers: {
@@ -142,7 +144,6 @@ export const OrderDetailsComponents = ({ match, routes }) => {
         onPress={() => setSelectedId(item.id)}
         style={{ backgroundColor }}
         match={match}
-        routes={routes}
       />
     );
   };
@@ -190,7 +191,6 @@ const styles = StyleSheet.create({
     color: "#0d47a1",
     fontWeight: "bold",
     textAlign: "center",
-    // borderWidth : 2,
   },
   description: {
     fontSize: 15,

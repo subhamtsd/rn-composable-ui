@@ -62,7 +62,7 @@ const Item = ({ item, onPress, style, match, routes }) => (
             }
           }
         >
-          <Text style={styles.title}>Selected Order Detail</Text>
+          <Text style={styles.title}>Bill To Address Details</Text>
           {/* <Text>{JSON.stringify(match.params.orderKey)}</Text>
           <Text>{JSON.stringify(routes)}</Text> */}
         </Col>
