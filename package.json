@@ -5,6 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@react-native-picker/picker": "^1.15.0",
     "dot-object": "^2.1.4",
     "expo": "^40.0.1",
     "history": "^5.0.0",
