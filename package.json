@@ -23,7 +23,17 @@
     "react-native-sortable-multilist": "1.1.2",
     "react-native-web-jsonschema-form": "^3.1.4",
     "react-native-web-ui-components": "^5.0.6",
-    "yarn": "^1.22.10"
+    "yarn": "^1.22.10",
+    "@react-native-picker/picker": "^1.15.0",
+    "brace": "^0.11.1",
+    "jsoneditor": "^9.1.9",
+    "jsoneditor-react": "^3.1.0",
+    "modal-react-native-web": "^0.2.0",
+    "react-native-svg": "^12.1.0",
+    "tailwind-rn": "^3.0.1",
+    "lodash": "^4.17.21",
+    "react-native-elements": "^3.4.1",
+    "react-native-uuid": "^2.0.1"
   },
   "devDependencies": {
     "@babel/preset-env": "latest",
